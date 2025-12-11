@@ -1,0 +1,16 @@
+release/arduino.o
+release/arduinorating.o
+release/client.o
+release/clientidialog.o
+release/connection.o
+release/draftify.o
+release/employe.o
+release/main.o
+release/plateforme.o
+release/projet.o
+release/qrc_image.o
+release/qrc_res.o
+release/qrc_resources.o
+release/moc_arduinorating.o
+release/moc_clientidialog.o
+release/moc_draftify.o

@@ -1,0 +1,16 @@
+debug/arduino.o
+debug/arduinorating.o
+debug/client.o
+debug/clientidialog.o
+debug/connection.o
+debug/draftify.o
+debug/employe.o
+debug/main.o
+debug/plateforme.o
+debug/projet.o
+debug/qrc_image.o
+debug/qrc_res.o
+debug/qrc_resources.o
+debug/moc_arduinorating.o
+debug/moc_clientidialog.o
+debug/moc_draftify.o

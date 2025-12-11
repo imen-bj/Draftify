@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ClientIDialog</class>
+ <widget class="QDialog" name="ClientIDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>529</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"> background: qlineargradient(x1:0, y1:0, x2:1, y2:1,
+                                stop:0 #C4B5FD,
+                                stop:1 #93C5FD);</string>
+  </property>
+  <widget class="QLineEdit" name="lineEditId">
+   <property name="geometry">
+    <rect>
+     <x>70</x>
+     <y>190</y>
+     <width>371</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    background-color: #FFFFFF;       /* white input background */
+    color: #1E293B;                  /* dark text for clarity */
+    font-size: 13px;
+    padding: 6px 10px;
+
+    border: 1px solid #C4B5FD;       /* thin violet border */
+    border-radius: 8px;              /* smooth rounded corners */
+}
+</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="labelInfo">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>40</y>
+     <width>411</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
