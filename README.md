@@ -1,6 +1,5 @@
 <div align="center">
-  <img src="DraftifyDONEEE/images/Draftify.png" alt="Draftify Logo" width="150" height="auto" />
-  <h1>✨ Draftify</h1>
+  <h1> Draftify</h1>
   <p><em>The Ultimate Smart Content Creation Studio Desktop Application</em></p>
 
   <p>
@@ -47,7 +46,7 @@ Using modern UI/UX paradigms, Draftify features beautiful animated charts, calen
 - **Calendar Integration**: Interactive, color-coded task assignments based on status and dynamically calculated deadlines.
 - **Smart Checklists**: Automatic, customizable task checklists based on the project category.
 
-### 🔌 Hardware Integration (Smart Arduino Systems)
+### 🤖 Hardware Integration (Smart Arduino Systems)
 - **Arduino RFID Smart Badges**: Physical security meets digital access! Employees or Creators simply scan their smart RFID badges over the Arduino hardware to instantly log into their profiles or verify their attendance, streamlining access and avoiding manual typing.
 - **Hardware Feedback & Rating Module**: An interactive physical rating terminal (powered by Arduino) allows live audiences, staff, or guests to leave physical ratings. The Arduino captures this data and transmits it instantaneously via the Serial Port directly into Draftify's Oracle Database for immediate chart generation.
 
