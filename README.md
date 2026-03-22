@@ -8,7 +8,6 @@
     <img src="https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white" alt="Qt" />
     <img src="https://img.shields.io/badge/Oracle-F80000?style=for-the-badge&logo=oracle&logoColor=white" alt="Oracle" />
     <img src="https://img.shields.io/badge/Arduino-00979D?style=for-the-badge&logo=Arduino&logoColor=white" alt="Arduino" />
-    <img src="https://img.shields.io/badge/Eco--Friendly-Paperless-4CAF50?style=for-the-badge&logo=leaf&logoColor=white" alt="Eco-Friendly" />
   </p>
 </div>
 
