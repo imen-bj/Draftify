@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="DraftifyDONEEE/images/DraftifyLogo.png" alt="Draftify Logo" width="150" height="auto" />
   <h1> Draftify</h1>
   <p><em>The Ultimate Smart Content Creation Studio Desktop Application</em></p>
 
