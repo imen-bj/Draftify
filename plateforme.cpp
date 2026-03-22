@@ -1,4 +1,4 @@
-#include "plateforme.h"
+﻿#include "plateforme.h"
 #include "connection.h"
 
 #include <QSqlDatabase>
@@ -69,7 +69,6 @@ bool plateforme::ajouterplat()
         return false;
     }
 
-    // ✅ Use working connection instead of default
     QSqlQuery checkName(getConnection());
     checkName.prepare("SELECT COUNT(*) FROM PLATEFORME WHERE NOM_PLAT = :name");
     checkName.bindValue(":name", name);
@@ -120,7 +119,7 @@ int plateforme::supprimerplat(int id, QString &deletedName)
 {
     deletedName.clear();
 
-    // ✅ Use working connection instead of default
+    //  Use working connection instead of default
     QSqlQuery queryCheck(getConnection());
     queryCheck.prepare("SELECT NOM_PLAT FROM PLATEFORME WHERE ID_PLAT = :id");
     queryCheck.bindValue(":id", id);
@@ -177,7 +176,7 @@ bool plateforme::modifierplat(int id,
             return false;
         }
 
-        // ✅ Use working connection instead of default
+        //  Use working connection instead of default
         QSqlQuery checkName(getConnection());
         checkName.prepare("SELECT COUNT(*) FROM PLATEFORME WHERE NOM_PLAT = :name AND ID_PLAT <> :id");
         checkName.bindValue(":name", nameTrim);
@@ -210,7 +209,7 @@ bool plateforme::modifierplat(int id,
 
     QString sql = "UPDATE PLATEFORME SET " + setClauses.join(", ") + " WHERE ID_PLAT = :id";
 
-    // ✅ Use working connection instead of default
+    //  Use working connection instead of default
     QSqlQuery q(getConnection());
     q.prepare(sql);
 
@@ -240,7 +239,6 @@ QSqlQueryModel* plateforme::afficherplat()
 {
     QSqlQueryModel *model = new QSqlQueryModel();
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.exec("SELECT ID_PLAT, NOM_PLAT, TYPE_PLAT, PHOTO FROM PLATEFORME");
     model->setQuery(query);
@@ -255,7 +253,6 @@ bool plateforme::chargerParId(int id, QString &name, QString &type, QString &pho
     type.clear();
     photo.clear();
 
-    // ✅ Use working connection instead of default
     QSqlQuery q(getConnection());
     q.prepare("SELECT NOM_PLAT, TYPE_PLAT, PHOTO FROM PLATEFORME WHERE ID_PLAT = :id");
     q.bindValue(":id", id);
@@ -280,7 +277,6 @@ bool plateforme::chargerParId(int id, QString &name, QString &type, QString &pho
 
 bool plateforme::isUserOnPlatform(int clientId, int platId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT COUNT(*) FROM INSCRIPTION WHERE ID_CL = :clientId AND ID_PLAT = :platId");
     query.bindValue(":clientId", clientId);
@@ -302,7 +298,6 @@ bool plateforme::addUserToPlatform(int clientId, int platId, const QString &user
         return false;
     }
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("INSERT INTO INSCRIPTION (ID_CL, ID_PLAT, USERNAME, NB_AB) "
                   "VALUES (:clientId, :platId, :username, :subCount)");
@@ -321,7 +316,6 @@ bool plateforme::addUserToPlatform(int clientId, int platId, const QString &user
 
 int plateforme::generateUniqueID()
 {
-    // ✅ Use working connection instead of default
     while (true) {
         int id = QRandomGenerator::global()->bounded(100000000, 999999999);
         QSqlQuery q(getConnection());
@@ -339,7 +333,6 @@ int plateforme::generateUniqueID()
 
 int plateforme::getPlatformIdByName(const QString &platName)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName");
     query.bindValue(":platName", platName);
@@ -355,7 +348,6 @@ int plateforme::getPlatformIdByName(const QString &platName)
 
 void plateforme::populatePlatformComboBox(QComboBox *comboBox)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT NOM_PLAT FROM PLATEFORME");
 
@@ -374,7 +366,6 @@ void plateforme::populatePlatformComboBox(QComboBox *comboBox)
 
 void plateforme::populateClientComboBox(QComboBox *comboBox)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL FROM CLIENT");
 
@@ -392,7 +383,6 @@ void plateforme::populateClientComboBox(QComboBox *comboBox)
 
 void plateforme::populateClientsTableView(int platId, QSqlQueryModel *model)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL, USERNAME, NB_AB FROM INSCRIPTION WHERE ID_PLAT = :platId");
     query.bindValue(":platId", platId);
@@ -408,7 +398,6 @@ void plateforme::populateClientsTableView(int platId, QSqlQueryModel *model)
 
 void plateforme::populateClientComboBoxForPlatform(QComboBox *comboBox, const QString &platName)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL FROM INSCRIPTION WHERE ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName)");
     query.bindValue(":platName", platName);
@@ -427,7 +416,6 @@ void plateforme::populateClientComboBoxForPlatform(QComboBox *comboBox, const QS
 
 bool plateforme::updateClientOnPlatform(int clientId, const QString &platName, const QString &username, int subCount)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName");
     query.bindValue(":platName", platName);
@@ -474,7 +462,6 @@ QList<int> plateforme::getClientIdsByPlatform(const QString& platName)
 {
     QList<int> clientIds;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL FROM INSCRIPTION WHERE ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName)");
     query.bindValue(":platName", platName);
@@ -493,7 +480,6 @@ QList<int> plateforme::getClientIdsByPlatform(const QString& platName)
 
 void plateforme::getAllPlatforms(QList<QString>& platforms)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT NOM_PLAT FROM PLATEFORME");
 
@@ -511,7 +497,6 @@ void plateforme::getAllPlatforms(QList<QString>& platforms)
 
 void plateforme::getClientsForPlatform(const QString& platName, QList<QString>& clientIds)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL FROM INSCRIPTION WHERE ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName)");
     query.bindValue(":platName", platName);
@@ -531,7 +516,6 @@ void plateforme::getClientsForPlatform(const QString& platName, QList<QString>& 
 
 bool plateforme::deleteClientFromPlatform(const QString& platName, const QString& clientId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("DELETE FROM INSCRIPTION WHERE ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName) AND ID_CL = :clientId");
     query.bindValue(":platName", platName);
@@ -543,7 +527,6 @@ bool plateforme::deleteClientFromPlatform(const QString& platName, const QString
 
 bool plateforme::findPlatform(const QString& searchText, int& platId, QString& platName)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery q(getConnection());
     bool okId = false;
     int idVal = searchText.toInt(&okId);
@@ -573,7 +556,6 @@ QStringList plateforme::getPlatformSuggestions()
 {
     QStringList items;
 
-    // ✅ Use working connection instead of default
     QSqlQuery q(getConnection());
     q.prepare("SELECT ID_PLAT, NOM_PLAT FROM PLATEFORME");
 
@@ -596,7 +578,6 @@ QVector<QPair<QString, int>> plateforme::getPlatformTypeStatistics()
 {
     QVector<QPair<QString, int>> platformTypesCounts;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT TYPE_PLAT, COUNT(*) AS count FROM PLATEFORME GROUP BY TYPE_PLAT ORDER BY count DESC");
 
@@ -619,7 +600,6 @@ QSqlQueryModel* plateforme::getAllPlatforms()
 {
     QSqlQueryModel *model = new QSqlQueryModel();
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_PLAT, NOM_PLAT, TYPE_PLAT FROM PLATEFORME");
     query.exec();
@@ -633,7 +613,6 @@ QSqlQueryModel* plateforme::getClientsForPlatform(int platId)
 {
     QSqlQueryModel *model = new QSqlQueryModel();
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL, USERNAME, NB_AB FROM INSCRIPTION WHERE ID_PLAT = :platId");
     query.bindValue(":platId", platId);
@@ -650,9 +629,7 @@ QSqlQueryModel* plateforme::getClientsForPlatform(int platId)
 
 QSqlQueryModel* plateforme::getTopClientsForPlatform(int platId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
-    // ✅ Oracle uses ROWNUM instead of TOP
     query.prepare("SELECT * FROM ("
                   "SELECT c.PHOTO_CL, i.USERNAME FROM CLIENT c "
                   "JOIN INSCRIPTION i ON c.ID_CL = i.ID_CL "
@@ -676,7 +653,6 @@ QList<QString> plateforme::getOtherPlatforms(int clientId, int currentPlatformId
 {
     QList<QString> otherPlatforms;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT p.NOM_PLAT FROM PLATEFORME p JOIN INSCRIPTION i ON p.ID_PLAT = i.ID_PLAT WHERE i.ID_CL = :clientId AND p.ID_PLAT != :currentPlatformId");
     query.bindValue(":clientId", clientId);
@@ -697,7 +673,6 @@ QList<QString> plateforme::getOtherPlatforms(int clientId, int currentPlatformId
 
 bool plateforme::getUserDetails(int clientId, QString &photo, QString &firstName, QString &lastName, int &subCount, int &oldSubCount, double &growthRate, QString &email, QStringList &otherPlatforms)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT * FROM CLIENT WHERE ID_CL = :clientId");
     query.bindValue(":clientId", clientId);
@@ -730,7 +705,6 @@ bool plateforme::getUserDetails(int clientId, QString &photo, QString &firstName
 
 QSqlQueryModel* plateforme::getClientDetails(int clientId, const QString& platName)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_CL, USERNAME, NB_AB FROM INSCRIPTION WHERE ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName) AND ID_CL = :clientId");
     query.bindValue(":platName", platName);
@@ -749,7 +723,6 @@ QSqlQueryModel* plateforme::getClientDetails(int clientId, const QString& platNa
 
 bool plateforme::updateClientInfo(int clientId, const QString& platName, const QString& newUsername, int newSubCount)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName");
     query.bindValue(":platName", platName);
@@ -778,7 +751,6 @@ bool plateforme::updateClientInfo(int clientId, const QString& platName, const Q
 
 int plateforme::getCurrentSubscriberCount(const QString& platName, int clientId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT NB_AB FROM INSCRIPTION WHERE ID_CL = :clientId AND ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName)");
     query.bindValue(":clientId", clientId);
@@ -794,7 +766,6 @@ int plateforme::getCurrentSubscriberCount(const QString& platName, int clientId)
 
 QString plateforme::getCurrentUsername(const QString& platName, int clientId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT USERNAME FROM INSCRIPTION WHERE ID_CL = :clientId AND ID_PLAT = (SELECT ID_PLAT FROM PLATEFORME WHERE NOM_PLAT = :platName)");
     query.bindValue(":clientId", clientId);
@@ -812,7 +783,6 @@ QVector<QPair<QString, int>> plateforme::getMostUsedPlatforms()
 {
     QVector<QPair<QString, int>> platformUsage;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT p.NOM_PLAT, COUNT(i.ID_CL) as client_count FROM PLATEFORME p LEFT JOIN INSCRIPTION i ON p.ID_PLAT = i.ID_PLAT GROUP BY p.NOM_PLAT, p.ID_PLAT HAVING COUNT(i.ID_CL) > 0 ORDER BY client_count DESC");
 
@@ -836,7 +806,6 @@ QVector<QPair<QString, int>> plateforme::getMostUsedPlatforms()
 
 int plateforme::getTotalUsersForPlatform(int platId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT COUNT(*) FROM INSCRIPTION WHERE ID_PLAT = :platId");
     query.bindValue(":platId", platId);
@@ -850,7 +819,6 @@ int plateforme::getTotalUsersForPlatform(int platId)
 
 int plateforme::getTotalSubscribersForPlatform(int platId)
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT SUM(NB_AB) FROM INSCRIPTION WHERE ID_PLAT = :platId");
     query.bindValue(":platId", platId);
@@ -868,7 +836,6 @@ QSqlQueryModel* plateforme::getAllPlatformsSorted(const QString &sortBy)
 {
     QSqlQueryModel *model = new QSqlQueryModel();
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     QString sql = QString("SELECT * FROM PLATEFORME ORDER BY %1 ASC").arg(sortBy);
     query.exec(sql);
@@ -881,7 +848,6 @@ QSqlQueryModel* plateforme::getAllPlatformsSorted(const QString &sortBy)
 
 int plateforme::getPlatformCount()
 {
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT COUNT(*) FROM PLATEFORME");
 
@@ -897,7 +863,6 @@ QList<plateforme::PlatformButtonData> plateforme::getPlatformButtonsData()
 {
     QList<PlatformButtonData> result;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT p.ID_PLAT, p.NOM_PLAT, p.PHOTO, COUNT(i.ID_CL) as USER_COUNT FROM PLATEFORME p LEFT JOIN INSCRIPTION i ON p.ID_PLAT = i.ID_PLAT GROUP BY p.ID_PLAT, p.NOM_PLAT, p.PHOTO ORDER BY p.NOM_PLAT ASC");
 
@@ -928,7 +893,6 @@ QList<plateforme::PlatformButtonData> plateforme::getPlatformsSortedBy(const QSt
         orderBy = "p.ID_PLAT ASC";
     }
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     QString sql = QString("SELECT p.ID_PLAT, p.NOM_PLAT, p.PHOTO, COUNT(i.ID_CL) as USER_COUNT FROM PLATEFORME p LEFT JOIN INSCRIPTION i ON p.ID_PLAT = i.ID_PLAT GROUP BY p.ID_PLAT, p.NOM_PLAT, p.PHOTO ORDER BY %1").arg(orderBy);
     query.prepare(sql);
@@ -952,7 +916,6 @@ plateforme::ClientDetails plateforme::getClientDetails(const QString& clientId)
 {
     ClientDetails details;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT EMAIL, PHOTO_CL FROM CLIENT WHERE ID_CL = :id");
     query.bindValue(":id", clientId);
@@ -970,7 +933,6 @@ plateforme::ClientDetails plateforme::getClientDetailsExcludingPlatform(const QS
 {
     ClientDetails details;
 
-    // ✅ Use working connection instead of default
     QSqlQuery query(getConnection());
     query.prepare("SELECT EMAIL, PHOTO_CL FROM CLIENT WHERE ID_CL = :id");
     query.bindValue(":id", clientId);
